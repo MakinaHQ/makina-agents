@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spellcaster CLI"
+  short_description: "Compose and debug spellcaster binary commands"
+  default_prompt: "Help me run a spellcaster command safely in non-interactive mode."
