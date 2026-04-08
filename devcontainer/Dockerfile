@@ -80,6 +80,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libxcb1 \
     libxkbcommon0 \
     libasound2t64 \
+    chromium-browser \
   && rm -rf /var/lib/apt/lists/*
 RUN if command -v fdfind >/dev/null 2>&1 && [ ! -e /usr/local/bin/fd ]; then \
     ln -s /usr/bin/fdfind /usr/local/bin/fd; \
@@ -186,8 +187,8 @@ RUN echo "node ALL=(root) NOPASSWD: ALL" > /etc/sudoers.d/yolo \
 USER node
 
 # Install agent-browser CLI globally
-RUN npm install -g agent-browser && agent-browser install --with-deps && agent-browser --version
-RUN npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+RUN npm install -g agent-browser && agent-browser --executable-path /usr/bin/chromium --version
+RUN npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser --agent claude-code -g -y
 
 # Install Homebrew (Linuxbrew)
 ENV HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
